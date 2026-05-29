@@ -1,7 +1,97 @@
 @import "tailwindcss";
 
+@theme {
+  /* Colors */
+  --color-primary: #3BB273;
+  --color-primary-hover: #33A166;
+  --color-primary-active: #2C8C57;
+  
+  --color-secondary: #E88BA8;
+  --color-accent-mint: #B8F2D0;
+  --color-accent-rose: #F8D7E3;
+  
+  --color-bg-neutral: #FAFBFC;
+  --color-bg-card: #FFFFFF;
+  --color-bg-header: #F8FAFC;
+  
+  --color-border-main: #E6E8EC;
+  
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+  
+  --color-status-success: #22C55E;
+  --color-status-warning: #F59E0B;
+  --color-status-danger: #EF4444;
+  --color-status-info: #3B82F6;
+
+  /* Typography */
+  --font-sans: 'Sora', sans-serif;
+
+  /* Shadows */
+  --shadow-card: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-floating: 0px 12px 32px rgba(0, 0, 0, 0.08);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-card: 20px;
+}
+
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-bg-neutral text-text-primary font-sans antialiased;
+  }
+  
+  /* Heading Defaults */
+  h1 { @apply text-[36px] font-bold leading-[44px]; }
+  h2 { @apply text-[30px] font-bold leading-[38px]; }
+  h3 { @apply text-[24px] font-semibold leading-[32px]; }
+}
+
+@layer components {
+  /* Premium Inputs */
+  .input-premium {
+    @apply w-full h-[48px] px-4 rounded-md border border-gray-300 bg-white text-[14px] transition-all duration-200 outline-none;
+  }
+  .input-premium:focus {
+    @apply border-primary;
+    box-shadow: 0 0 0 3px rgba(59,178,115,0.15);
+  }
+  .input-label {
+    @apply block text-[13px] font-medium text-text-primary mb-1;
+  }
+
+  /* Premium Buttons */
+  .btn-primary {
+    @apply h-[44px] px-[20px] bg-primary text-white rounded-md font-medium text-[14px] transition-colors duration-200;
+  }
+  .btn-primary:hover { @apply bg-primary-hover; }
+  .btn-primary:active { @apply bg-primary-active; }
+  .btn-primary:disabled { @apply opacity-40 cursor-not-allowed hover:bg-primary; }
+  
+  .btn-secondary {
+    @apply h-[44px] px-[20px] bg-secondary text-white rounded-md font-medium text-[14px] transition-colors duration-200 hover:opacity-90;
+  }
+  .btn-ghost {
+    @apply h-[44px] px-[20px] bg-transparent border border-border-main text-text-primary rounded-md font-medium text-[14px] transition-colors duration-200 hover:bg-gray-50;
+  }
+  
+  /* Enterprise Table */
+  .table-container {
+    @apply w-full bg-white rounded-card shadow-card overflow-hidden border border-border-main;
+  }
+  .table-header {
+    @apply bg-bg-header border-b border-border-main sticky top-0;
+  }
+  .table-th {
+    @apply px-6 py-4 text-left text-[13px] font-semibold text-text-secondary uppercase tracking-wider;
+  }
+  .table-row {
+    @apply border-b border-border-main hover:bg-gray-50 transition-colors;
+  }
+  .table-td {
+    @apply px-6 py-4 text-[14px] text-text-primary whitespace-nowrap;
   }
 }

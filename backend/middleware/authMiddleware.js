@@ -1,21 +1,25 @@
 const jwt = require('jsonwebtoken');
 
 exports.verifyToken = (req, res, next) => {
-    // Ambil token dari header Authorization: Bearer <token>
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-        return res.status(403).json({ message: 'Token tidak tersedia. Akses ditolak!' });
-    }
+    const token = req.header('Authorization');
+    if (!token) return res.status(403).json({ message: 'Akses Ditolak. Token tidak ditemukan.' });
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET || 'secretkey123');
         req.user = decoded;
         next();
     } catch (error) {
-        return res.status(401).json({ message: 'Token tidak valid atau sudah kadaluarsa!' });
+        res.status(401).json({ message: 'Token tidak valid' });
     }
+};
+
+exports.authorizeRoles = (...roles) => {
+    return (req, res, next) => {
+        if (!req.user || !roles.includes(req.user.role)) {
+            return res.status(403).json({ message: `Akses Ditolak. Membutuhkan role: ${roles.join(', ')}` });
+        }
+        next();
+    };
 };
 
 // Middleware untuk cek role Admin

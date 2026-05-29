@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Categories from './pages/Categories';
+import Items from './pages/Items';
+import Transactions from './pages/Transactions';
 
 // Komponen untuk memproteksi route (Hanya bisa diakses jika sudah login)
 function ProtectedRoute({ children }) {
@@ -19,11 +22,19 @@ function App() {
         
         <Route 
           path="/dashboard" 
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          } 
+          element={<ProtectedRoute><Dashboard /></ProtectedRoute>} 
+        />
+        <Route 
+          path="/categories" 
+          element={<ProtectedRoute><Categories /></ProtectedRoute>} 
+        />
+        <Route 
+          path="/items" 
+          element={<ProtectedRoute><Items /></ProtectedRoute>} 
+        />
+        <Route 
+          path="/transactions" 
+          element={<ProtectedRoute><Transactions /></ProtectedRoute>} 
         />
         
         {/* Redirect dari / ke /dashboard */}

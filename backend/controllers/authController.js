@@ -7,6 +7,13 @@ exports.login = async (req, res) => {
     try {
         const { username, password } = req.body;
 
+        // Validasi kekuatan password (Pemenuhan Modul 1.b)
+        // Minimal 8 karakter, harus ada angka dan huruf
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            return res.status(400).json({ message: 'Password terlalu lemah! Harus minimal 8 karakter dan mengandung kombinasi huruf dan angka.' });
+        }
+
         // Cari user berdasarkan username
         const user = await User.findOne({ 
             where: { username },

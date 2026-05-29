@@ -4,6 +4,9 @@ const User = require('./models/User');
 const Category = require('./models/Category');
 const Item = require('./models/Item');
 const Transaction = require('./models/Transaction');
+const AuditLog = require('./models/AuditLog');
+const Supplier = require('./models/Supplier');
+const Warehouse = require('./models/Warehouse');
 const bcrypt = require('bcryptjs');
 
 async function syncAndSeed() {
