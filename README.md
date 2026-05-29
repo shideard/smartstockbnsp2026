@@ -2,8 +2,6 @@
 
 SmartStock Pro adalah sistem manajemen inventaris modern bergaya SaaS (*Software as a Service*) tingkat Enterprise. Proyek ini dibangun untuk memenuhi tugas Post-Assessment sertifikasi BNSP SSMI IPB 2026.
 
-![Dashboard Preview](https://via.placeholder.com/1200x600?text=SmartStock+Pro+Enterprise+Dashboard)
-
 ## ✨ Fitur Utama
 
 Aplikasi ini mencakup modul standar BNSP:
