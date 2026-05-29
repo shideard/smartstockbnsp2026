@@ -69,12 +69,8 @@ export default function Login() {
                             required
                         />
                     </div>
-                    <button 
-                        type="submit" 
-                        disabled={loading}
-                        className="btn-primary w-full mt-2"
-                    >
-                        {loading ? 'Authenticating...' : 'Sign In'}
+                    <button type="submit" disabled={loading} className="btn-primary w-full mt-2 font-bold text-[15px] h-[48px]">
+                        {loading ? 'Masuk...' : 'Masuk'}
                     </button>
                 </form>
                 

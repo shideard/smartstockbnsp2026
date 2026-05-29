@@ -20,24 +20,32 @@ async function syncAndSeed() {
         await sequelize.sync({ alter: true });
         
         console.log('Seeding default roles...');
-        const adminRole = await Role.create({ name: 'Admin' });
-        const staffRole = await Role.create({ name: 'Staff' });
+        const [adminRole] = await Role.findOrCreate({ where: { name: 'Admin' } });
+        const [manajerRole] = await Role.findOrCreate({ where: { name: 'Manajer Gudang' } });
+        const [stafRole] = await Role.findOrCreate({ where: { name: 'Staf Gudang' } });
+        const [viewerRole] = await Role.findOrCreate({ where: { name: 'Viewer' } });
 
-        console.log('Seeding default admin user...');
+        console.log('Seeding default users...');
         const hashedPassword = await bcrypt.hash('password123', 10);
-        await User.create({
-            name: 'Super Admin',
-            username: 'admin',
-            password: hashedPassword,
-            role_id: adminRole.id
+        
+        await User.findOrCreate({
+            where: { username: 'admin' },
+            defaults: { name: 'Super Admin', password: hashedPassword, role_id: adminRole.id }
         });
 
-        console.log('Seeding default staff user...');
-        await User.create({
-            name: 'Staff Gudang',
-            username: 'staff',
-            password: hashedPassword,
-            role_id: staffRole.id
+        await User.findOrCreate({
+            where: { username: 'manajer' },
+            defaults: { name: 'Manajer Gudang', password: hashedPassword, role_id: manajerRole.id }
+        });
+
+        await User.findOrCreate({
+            where: { username: 'staf' },
+            defaults: { name: 'Staf Gudang', password: hashedPassword, role_id: stafRole.id }
+        });
+
+        await User.findOrCreate({
+            where: { username: 'viewer' },
+            defaults: { name: 'Viewer Akses', password: hashedPassword, role_id: viewerRole.id }
         });
 
         console.log('Sync and Seed complete! You can now start the server.');
